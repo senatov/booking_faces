@@ -1,0 +1,46 @@
+= #*booking_faces*# (refreshed Example from Spring.io)
+
+
+Java 14, JSF2, Spring App (Tomcat 9), Spring Boot, Prime Faces,
+Spring Webflow, HSQLDB - based on Example from Spring.io
+
+
+[green]#*copyleft* _`Iakov Senatov 02.2020.`_#
+
+|===
+|Libs | Ver
+
+|Spring Boot
+|[red]*2.2.6*
+|Primefaces
+
+|7.0.
+|JSF
+|Mojarra 2.4.0
+
+|Spring Web Flow
+|2.5.1.RELEASE
+|JSE
+|[red]*14*
+
+|===
+
+My own implementation of Projects from Spring.io webflow examples.
+
+
+*Paths:*
+
+|===
+|*path are:* | *description* |*remarks*
+
+|http://localhost:18082/ui/login
+| *Authorisation*
+| [green]#first default page.#
+
+|===
+
+**Database: ** HSQLDB (memo)
+
+mailto://javaentwickler@gmail.com[EMail]
+
+*Live Demo:* ~(will be continued)~
