@@ -1,19 +1,19 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	    		xmlns:ui="http://java.sun.com/jsf/facelets"
-	  			xmlns:h="http://java.sun.com/jsf/html"
-	  			xmlns:f="http://java.sun.com/jsf/core"
-	  			xmlns:p="http://primefaces.org/ui"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
 				template="/WEB-INF/layouts/standard.xhtml">
-<ui:define name="notes">
-	<p>
-		Note that the command button actions raise events (e.g. "revise") instead of specifying method expressions.
-		The events result in transitions on the server side (see reviewBooking state in <strong>booking-flow.xml</strong>).
-	</p>
-</ui:define>
-<ui:define name="content">
-	<div class="span-5">
-		<h3>${booking.hotel.name}</h3>
+	<ui:define name="notes">
+		<p>
+			Note that the command button actions raise events (e.g. "revise") instead of specifying method expressions.
+			The events result in transitions on the server side (see reviewBooking state in <strong>booking-flow.xml</strong>).
+		</p>
+	</ui:define>
+	<ui:define name="content">
+		<div class="span-5">
+			<h3>${booking.hotel.name}</h3>
 		<address>
 			${booking.hotel.address}
 			<br/>
