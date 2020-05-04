@@ -28,7 +28,7 @@
     <!--
            COMMON
      -->
-    <root level="WARN">
+    <root level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </root>
@@ -36,7 +36,7 @@
     <!--
             LOGGERS
      -->
-    <logger name="com.sun.faces" level="WARN">
+    <logger name="com.sun.faces" level="DEBUG">
         <appender-ref ref="console"/>
     </logger>
     <logger name="org.springframework.webflow" level="TRACE">
@@ -47,11 +47,11 @@
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.springframework.security" additivity="false" level="WARN">
+    <logger name="org.springframework.security" additivity="false" level="DEBUG">
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
-    <logger name="javax.faces" additivity="false" level="WARN">
+    <logger name="javax.faces" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
@@ -59,12 +59,17 @@
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
-    <logger name="javax.el" additivity="false" level="WARN">
+    <logger name="javax.el" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
-    <logger name="com.sun.faces" additivity="false" level="WARN">
+    <logger name="com.sun.faces" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
+    <logger name="org.hibernate" additivity="false" level="WARN">
+        <appender-ref ref="console"/>
+        <appender-ref ref="app-log"/>
+    </logger>
+
 </configuration>

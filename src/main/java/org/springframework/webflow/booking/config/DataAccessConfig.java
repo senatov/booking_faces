@@ -50,7 +50,6 @@ public class DataAccessConfig {
 
         log.debug(format(U_WANT_S, env.getProperty("spring.jpa.show-sql", Boolean.class)));
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        //emf.setPersistenceXmlLocation("classpath:/META-INF/persistence.xml");
         emf.setJpaVendorAdapter(getVendorAdapter());
         emf.setPackagesToScan(Hotel.class.getPackageName());
         emf.setJpaProperties(additionalProperties());

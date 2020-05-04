@@ -5,8 +5,22 @@
     <groupId>org.springframework.webflow</groupId>
     <artifactId>booking-faces</artifactId>
     <packaging>war</packaging>
-    <name>Hotel Booking: Spring Web Flow with: JSF2, PrimeFaces, MySQL,Spring-Boot</name>
+    <name>Example: Hotel Booking: Spring-Boot, Spring WebFlow with: JSF2, PrimeFaces, HSQLDB,Spring-Boot</name>
     <version>1.0.1.BUILD-SNAPSHOT</version>
+
+    <developers>
+        <developer>
+            <id>senatov</id>
+            <name>iakov senatov</name>
+            <email>javaentwickler@gmail.com</email>
+            <organizationUrl>https://www.xing.com/profile/Iakov_Senatov/cv</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <url>https://github.com/senatov/booking_faces.git</url>
+            <organization>freelance</organization>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -69,17 +83,6 @@
             <url>http://repository.primefaces.org</url>
         </repository>
     </repositories>
-    <developers>
-        <developer>
-            <id>isenatov</id>
-            <organizationUrl>https://www.xing.com/profile/Iakov_Senatov/cv</organizationUrl>
-            <email>javaentwickler@gmail.com</email>
-            <name>Iakov Senatov</name>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
 
     <dependencyManagement>
         <dependencies>
@@ -488,6 +491,10 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -509,6 +516,42 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.0.0</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>validate-the-git-infos</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>validateRevision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <format>json</format>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>
+                        ${project.build.outputDirectory}/git.properties
+                    </generateGitPropertiesFilename>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                    <prefix>git</prefix>
+                    <verbose>false</verbose>
+                    <gitDescribe>
+                        <skip>false</skip>
+                        <always>false</always>
+                        <dirty>-dirty</dirty>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
@@ -520,18 +563,17 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                         <manifestEntries>
-                            <Built-At>${build-timestamp} UTC</Built-At>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                            <Built-At>${maven.build.timestamp}</Built-At>
+                            <Implementation-Build>${buildnumber}</Implementation-Build>
                             <version>${project.version}</version>
                             <mode>development</mode>
                             <url>${project.url}</url>
                             <Build-Jdk>${java.version} (${java.vendor} ${java.vm.version})</Build-Jdk>
-                            <Build-Timestamp>${git.build.time}</Build-Timestamp>
+                            <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
                             <Build-Revision>${git.commit.id}</Build-Revision>
                             <Build-OS>${os.name} ${os.arch} ${os.version}</Build-OS>
                         </manifestEntries>
                     </archive>
-
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
                         <resource>

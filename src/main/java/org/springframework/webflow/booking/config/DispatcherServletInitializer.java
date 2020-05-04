@@ -13,45 +13,47 @@ import javax.servlet.ServletException;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
 
-		return new Class<?>[]{SecurityConfig.class, AppConfig.class};
-	}
+        return new Class<?>[]{SecurityConfig.class, AppConfig.class};
+    }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
 
-		return null;
-	}
 
-	@Override
-	protected String[] getServletMappings() {
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
 
-		return new String[]{"/spring/*"};
-	}
+        return null;
+    }
 
-	@Override
-	protected Filter[] getServletFilters() {
 
-		return new Filter[]{new CharacterEncodingFilter()};
-	}
 
-	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
+    @Override
+    protected String[] getServletMappings() {
 
-		// Use JSF view templates saved as *.xhtml, for use with Facelets
-		servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
-		// Enable special Facelets debug output during development
-		servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-		// Causes Facelets to refresh templates during development
-		servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
-		// Declare Spring Security Facelets tag library
-		servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/springsecurity.taglib.xml");
-		// Comment out if not using Mojarra
-		servletContext.addListener(com.sun.faces.config.ConfigureListener.class);
-		// Let the DispatcherServlet be registered
-		super.onStartup(servletContext);
-	}
+        return new String[]{"/spring/*"};
+    }
+
+
+
+    @Override
+    protected Filter[] getServletFilters() {
+
+        return new Filter[]{new CharacterEncodingFilter()};
+    }
+
+
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+
+        servletContext.addListener(com.sun.faces.config.ConfigureListener.class);
+        servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
+        servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/springsecurity.taglib.xml");
+        servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
+        servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
+        super.onStartup(servletContext);
+    }
 
 }
