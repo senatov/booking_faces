@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.mvc.JsfView;
 import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
 import org.springframework.http.CacheControl;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
@@ -71,25 +72,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return new SimpleControllerHandlerAdapter();
     }
 
+
+
     /**
      * Register resource handler for images, scrips and css under /webapp in Spring-Boot start configuration.
      *
      * @param registry
      * @since 05.2020
      */
-    /**
-     @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-     registry
-     .addResourceHandler("/images/**")
-     .addResourceLocations("/images/")
-     .setCacheControl(CACHE_PUBLIC);
-     registry
-     .addResourceHandler("/styles/**")
-     .addResourceLocations("/styles/")
-     .setCacheControl(CACHE_PUBLIC);
-     //registry.addResourceHandler("/WEB-INF/**").addResourceLocations("/spring/").setCacheControl(CACHE_PUBLIC);
-     log.debug(format("registry= %s", registry));
-     }
-     **/
+        registry.addResourceHandler("/spring/images/**").addResourceLocations("/resources/images/").setCacheControl(CACHE_PUBLIC);
+        registry.addResourceHandler("/spring/styles/**").addResourceLocations("/resources/styles/").setCacheControl(CACHE_PUBLIC);
+    }
+
 }

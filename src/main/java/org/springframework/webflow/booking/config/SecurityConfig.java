@@ -19,14 +19,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                /*
-                .authorizeRequests()
-                .antMatchers("/spring/**", "/images/**", "/styles/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                */.formLogin()
+
+                /**
+                 .authorizeRequests()
+                 .antMatchers("/resources/images/**", "/resources/styles/**", "/intro/**", "/login/**")
+                 .permitAll()
+                 .anyRequest()
+                 .authenticated()
+                 .and()
+                 */.formLogin()
                 .loginPage("/spring/login")
                 .loginProcessingUrl("/spring/loginProcess")
                 .defaultSuccessUrl("/spring/main")

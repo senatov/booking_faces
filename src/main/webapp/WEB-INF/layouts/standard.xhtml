@@ -4,22 +4,32 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
 >
 
 <f:view contentType="text/html">
-
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Spring Faces: Hotel Booking Sample Application</title>
-        <link rel="stylesheet" href="${request.contextPath}/resources/styles/blueprint/screen.css" type="text/css" media="screen, projection"/>
-        <link rel="stylesheet" href="${request.contextPath}/resources/styles/blueprint/print.css" type="text/css" media="print"/>
+        <link rel="stylesheet" href="/resources/styles/blueprint/screen.css" type="text/css" media="screen, projection"/>
+        <link rel="stylesheet" href="/resources/styles/blueprint/print.css" type="text/css" media="print"/>
         <!--[if lt IE 8]>
             <link rel="stylesheet" href="${request.contextPath}/resources/styles/blueprint/ie.css" type="text/css" media="screen, projection" />
         <![endif]-->
-        <link rel="stylesheet" href="${request.contextPath}/resources/styles/le-frog/jquery-ui-1.8.2.custom.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="/resources/styles/le-frog/jquery-ui-1.8.2.custom.css" type="text/css" media="screen"/>
         <ui:insert name="headIncludes"/>
     </h:head>
     <h:body>
+        <p:panelGrid columns="2" style="border: #2b2b2b">
+            <h:outputText value="contextPath:"/>
+            <h:outputText value="${request.contextPath}"/>
+
+            <h:outputText value="RealPath:"/>
+            <h:outputText value="${request.getRealPath('/')}"/>
+
+        </p:panelGrid>
+
+        <p:separator styleClass="append-6"/>
         <div class="container">
             <div>
                 <h4 class="alt bottom">
@@ -36,8 +46,7 @@
                 </h4>
             </div>
             <div>
-                <a href="#{request.contextPath}"><img src="${request.contextPath}/resources/images/header.jpg" height="200" width="950"
-                                                      alt="Spring Travel"/></a>
+                <a href="#{request.contextPath}"><img src="/resources/images/header.jpg" height="200" width="950" alt="Spring Travel"/></a>
             </div>
             <hr class="space"/>
             <div>
@@ -52,7 +61,7 @@
             <hr class="space"/>
             <div>
                 <a href="https://www.springframework.org">
-                    <img src="${request.contextPath}/resources/images/powered-by-spring.png" alt="Powered by Spring"/>
+                    <img src="/resources/images/powered-by-spring.png" alt="Powered by Spring"/>
                 </a>
             </div>
         </div>
