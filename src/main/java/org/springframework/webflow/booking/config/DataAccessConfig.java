@@ -1,7 +1,7 @@
 package org.springframework.webflow.booking.config;
 
 
-
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,65 +24,65 @@ import java.util.Properties;
 import static java.lang.String.format;
 
 
-
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource("classpath:application.properties")
 @Slf4j
+@ToString
 public class DataAccessConfig {
 
-    public static final String U_WANT_S = "It works both under Spring Boot and Spring AS App. \n So, could you read values from property file, if u want: %s";
-    @Autowired Environment env;
+  public static final String U_WANT_S = "It works both under Spring Boot and Spring AS App. \n So, could you read values from property file, if u want: %s";
+  @Autowired
+  Environment env;
 
 
+  @Bean
+  public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
 
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-
-        JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(emf);
-        return txManager;
-    }
-
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
-        log.debug(format(U_WANT_S, env.getProperty("spring.jpa.show-sql", Boolean.class)));
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setJpaVendorAdapter(getVendorAdapter());
-        emf.setPackagesToScan(Hotel.class.getPackageName());
-        emf.setJpaProperties(additionalProperties());
-        emf.setDataSource(getDS());
-        emf.afterPropertiesSet();
-        return emf;
-    }
+    JpaTransactionManager txManager = new JpaTransactionManager();
+    txManager.setEntityManagerFactory(emf);
+    return txManager;
+  }
 
 
-    private HibernateJpaVendorAdapter getVendorAdapter() {
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(Boolean.TRUE);
-        vendorAdapter.setShowSql(Boolean.TRUE);
-        vendorAdapter.setDatabase(Database.HSQL);
-        return vendorAdapter;
-    }
-
-
-    Properties additionalProperties() {
-
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-        return properties;
-    }
+    log.debug(format(U_WANT_S, env.getProperty("spring.jpa.show-sql", Boolean.class)));
+    LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+    emf.setJpaVendorAdapter(getVendorAdapter());
+    emf.setPackagesToScan(Hotel.class.getPackageName());
+    emf.setJpaProperties(additionalProperties());
+    emf.setDataSource(getDS());
+    emf.afterPropertiesSet();
+    return emf;
+  }
 
 
-    private DataSource getDS() {
+  private HibernateJpaVendorAdapter getVendorAdapter() {
 
-        DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:hsqldb:mem:booking", "sa", "");
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-        return dataSource;
-    }
+    HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    vendorAdapter.setGenerateDdl(Boolean.TRUE);
+    vendorAdapter.setShowSql(Boolean.TRUE);
+    vendorAdapter.setDatabase(Database.HSQL);
+    return vendorAdapter;
+  }
+
+
+  Properties additionalProperties() {
+
+    Properties properties = new Properties();
+    properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+    return properties;
+  }
+
+
+  private DataSource getDS() {
+
+    DriverManagerDataSource dataSource = new DriverManagerDataSource("jdbc:hsqldb:mem:booking", "sa", "");
+    dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+    return dataSource;
+  }
 
 }
