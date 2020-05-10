@@ -24,7 +24,6 @@
             <MaxFileSize>5MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
-
     <!--
            COMMON
      -->
@@ -32,18 +31,17 @@
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </root>
-
     <!--
             LOGGERS
      -->
     <logger name="com.sun.faces" level="DEBUG">
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.springframework.webflow" level="TRACE">
+    <logger name="org.springframework.webflow" additivity="false" level="DEBUG">
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
-    <logger name="org.springframework.faces" level="TRACE">
+    <logger name="org.springframework.faces" additivity="false" level="DEBUG">
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
@@ -51,7 +49,7 @@
         <appender-ref ref="app-log"/>
         <appender-ref ref="console"/>
     </logger>
-    <logger name="javax.faces" additivity="false" level="TRACE">
+    <logger name="javax.faces" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
@@ -59,11 +57,11 @@
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
-    <logger name="com.sun.faces" additivity="false" level="TRACE">
+    <logger name="com.sun.faces" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>
-    <logger name="org.hibernate" additivity="false" level="WARN">
+    <logger name="org.hibernate" additivity="false" level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="app-log"/>
     </logger>

@@ -34,7 +34,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private WebFlowConfig webFlowConfig;
 
 
-
     @Bean
     public FlowHandlerMapping flowHandlerMapping() {
 
