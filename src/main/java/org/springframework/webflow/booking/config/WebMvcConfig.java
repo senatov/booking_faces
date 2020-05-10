@@ -27,7 +27,7 @@ import static java.util.concurrent.TimeUnit.HOURS;
 @Configuration
 @Slf4j
 @ToString
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig {
 
     public static final CacheControl CACHE_PUBLIC = CacheControl.maxAge(2, HOURS).cachePublic();
     @Autowired
@@ -73,15 +73,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public SimpleControllerHandlerAdapter simpleControllerHandlerAdapter() {
 
         return new SimpleControllerHandlerAdapter();
-    }
-
-
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        registry.addResourceHandler("/styles/**").addResourceLocations("/styles/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
     }
 
 }
