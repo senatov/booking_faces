@@ -4,6 +4,7 @@ package org.springframework.webflow.booking.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.webflow.utils.Utls;
 
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
@@ -13,47 +14,39 @@ import javax.servlet.ServletException;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
 
-        return new Class<?>[]{SecurityConfig.class, AppConfig.class};
-    }
-
-
-
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-
-        return null;
-    }
+		return new Class<?>[]{SecurityConfig.class, AppConfig.class};
+	}
 
 
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
 
-    @Override
-    protected String[] getServletMappings() {
-
-        return new String[]{"/spring/*"};
-    }
-
+		return null;
+	}
 
 
-    @Override
-    protected Filter[] getServletFilters() {
+	@Override
+	protected String[] getServletMappings() {
 
-        return new Filter[]{new CharacterEncodingFilter()};
-    }
+		return new String[]{"/spring/*"};
+	}
 
 
+	@Override
+	protected Filter[] getServletFilters() {
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+		return new Filter[]{new CharacterEncodingFilter()};
+	}
 
-        servletContext.addListener(com.sun.faces.config.ConfigureListener.class);
-        servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
-        servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/springsecurity.taglib.xml");
-        servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
-        servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-        super.onStartup(servletContext);
-    }
+
+	@Override
+	public void onStartup(ServletContext sc) throws ServletException {
+
+		Utls.setParams(sc);
+		super.onStartup(sc);
+	}
 
 }
