@@ -29,5 +29,8 @@ final public class Utls {
 		sc.setInitParameter("primefaces.FONT_AWESOME", TRUE.toString());
 		sc.setInitParameter("primefaces.THEME", "redmond");
 		sc.setInitParameter("javax.faces.WEBAPP_RESOURCES_DIRECTORY", "/");
+		sc.setInitParameter("com.sun.faces.compressJavaScript", FALSE.toString());
+		sc.setInitParameter("Javax.faces.CONFIG_FILES", "/WEB-INF/faces-config.xml");
+
 	}
 }
