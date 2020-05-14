@@ -6,7 +6,7 @@
     <artifactId>booking-faces</artifactId>
     <packaging>war</packaging>
     <name>Example: Hotel Booking: Spring-Boot, Spring WebFlow with: JSF2, PrimeFaces, HSQLDB,Spring-Boot</name>
-    <version>1.0.1.BUILD-SNAPSHOT</version>
+    <version>1.0.2.BUILD-SNAPSHOT</version>
 
     <developers>
         <developer>
