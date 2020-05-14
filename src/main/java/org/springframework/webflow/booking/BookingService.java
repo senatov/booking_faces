@@ -1,5 +1,8 @@
 package org.springframework.webflow.booking;
 
+import org.springframework.webflow.booking.entities.Booking;
+import org.springframework.webflow.booking.entities.Hotel;
+
 import java.util.List;
 
 /**

@@ -15,7 +15,8 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.webflow.booking.Hotel;
+import org.springframework.webflow.booking.entities.Hotel;
+
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

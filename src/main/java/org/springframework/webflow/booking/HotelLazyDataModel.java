@@ -4,6 +4,7 @@ import lombok.ToString;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.webflow.booking.entities.Hotel;
 
 import java.util.List;
 import java.util.Map;

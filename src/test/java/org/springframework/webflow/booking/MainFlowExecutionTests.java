@@ -1,10 +1,15 @@
 package org.springframework.webflow.booking;
 
+
+
 import lombok.ToString;
 import org.easymock.EasyMock;
 import org.springframework.binding.mapping.Mapper;
 import org.springframework.binding.mapping.MappingResults;
 import org.springframework.faces.model.converter.FacesConversionService;
+import org.springframework.webflow.booking.entities.Booking;
+import org.springframework.webflow.booking.entities.Hotel;
+import org.springframework.webflow.booking.entities.User;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
 import org.springframework.webflow.core.collection.AttributeMap;
@@ -18,105 +23,120 @@ import javax.faces.model.DataModel;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @ToString
 public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 
-  private BookingService bookingService;
+	private BookingService bookingService;
 
-  @Override
-  protected void setUp() {
-    bookingService = EasyMock.createMock(BookingService.class);
-  }
+	@Override
+	protected void setUp() {
 
-  @Override
-  protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-    return resourceFactory.createFileResource("src/main/webapp/WEB-INF/flows/main/main-flow.xml");
-  }
+		bookingService = EasyMock.createMock(BookingService.class);
+	}
 
-  @Override
-  protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
-    builderContext.registerBean("bookingService", bookingService);
-    builderContext.getFlowBuilderServices().setConversionService(new FacesConversionService());
-  }
+	@Override
+	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 
-  public void testStartMainFlow() {
-    List<Booking> bookings = new ArrayList<>();
-    bookings.add(new Booking(new Hotel(), new User("keith", "password", "Keith Donald")));
-    EasyMock.expect(bookingService.findBookings("keith")).andReturn(bookings);
-    EasyMock.replay(bookingService);
+		return resourceFactory.createFileResource("src/main/webapp/WEB-INF/flows/main/main-flow.xml");
+	}
 
-    MockExternalContext context = new MockExternalContext();
-    context.setCurrentUser("keith");
-    startFlow(context);
-    assertCurrentStateEquals("enterSearchCriteria");
-    assertResponseWrittenEquals("enterSearchCriteria", context);
-    assertTrue(getRequiredFlowAttribute("searchCriteria") instanceof SearchCriteria);
-    assertTrue(getRequiredViewAttribute("bookings") instanceof DataModel);
+	@Override
+	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 
-    EasyMock.verify(bookingService);
-  }
+		builderContext.registerBean("bookingService", bookingService);
+		builderContext
+				.getFlowBuilderServices()
+				.setConversionService(new FacesConversionService());
+	}
 
-  public void testSearchHotels() {
-    setCurrentState("enterSearchCriteria");
+	public void testStartMainFlow() {
 
-    SearchCriteria criteria = new SearchCriteria();
-    criteria.setSearchString("Jameson");
-    getFlowScope().put("searchCriteria", criteria);
+		List<Booking> bookings = new ArrayList<>();
+		bookings.add(new Booking(new Hotel(), new User("keith", "password", "Keith Donald")));
+		EasyMock
+				.expect(bookingService.findBookings("keith"))
+				.andReturn(bookings);
+		EasyMock.replay(bookingService);
 
-    MockExternalContext context = new MockExternalContext();
-    context.setEventId("search");
-    resumeFlow(context);
+		MockExternalContext context = new MockExternalContext();
+		context.setCurrentUser("keith");
+		startFlow(context);
+		assertCurrentStateEquals("enterSearchCriteria");
+		assertResponseWrittenEquals("enterSearchCriteria", context);
+		assertTrue(getRequiredFlowAttribute("searchCriteria") instanceof SearchCriteria);
+		assertTrue(getRequiredViewAttribute("bookings") instanceof DataModel);
 
-    assertCurrentStateEquals("reviewHotels");
-    assertResponseWrittenEquals("reviewHotels", context);
-    assertTrue(getRequiredViewAttribute("hotels") instanceof HotelLazyDataModel);
-  }
+		EasyMock.verify(bookingService);
+	}
 
-  public void testSelectHotel() {
-    setCurrentState("reviewHotels");
+	public void testSearchHotels() {
 
-    List<Hotel> hotels = new ArrayList<>();
-    Hotel hotel = new Hotel();
-    hotel.setId(1L);
-    hotel.setName("Jameson Inn");
-    hotels.add(hotel);
-    HotelLazyDataModel dataModel = new HotelLazyDataModel();
-    dataModel.setSelected(hotel);
-    getViewScope().put("hotels", dataModel);
+		setCurrentState("enterSearchCriteria");
 
-    MockExternalContext context = new MockExternalContext();
-    context.setEventId("select");
-    resumeFlow(context);
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setSearchString("Jameson");
+		getFlowScope().put("searchCriteria", criteria);
 
-    assertCurrentStateEquals("reviewHotel");
-    assertNull(getFlowAttribute("hotels"));
-    assertSame(hotel, getFlowAttribute("hotel"));
-  }
+		MockExternalContext context = new MockExternalContext();
+		context.setEventId("search");
+		resumeFlow(context);
 
-  public void testBookHotel() {
-    setCurrentState("reviewHotel");
+		assertCurrentStateEquals("reviewHotels");
+		assertResponseWrittenEquals("reviewHotels", context);
+		assertTrue(getRequiredViewAttribute("hotels") instanceof HotelLazyDataModel);
+	}
 
-    Hotel hotel = new Hotel();
-    hotel.setId(1L);
-    hotel.setName("Jameson Inn");
-    getFlowScope().put("hotel", hotel);
+	public void testSelectHotel() {
 
-    Flow mockBookingFlow = new Flow("booking");
-    mockBookingFlow.setInputMapper(new Mapper() {
-      @Override
-      public MappingResults map(Object source, Object target) {
-        assertEquals(Long.valueOf(1), ((AttributeMap) source).get("hotelId"));
-        return null;
-      }
-    });
-    new EndState(mockBookingFlow, "bookingConfirmed");
-    getFlowDefinitionRegistry().registerFlowDefinition(mockBookingFlow);
+		setCurrentState("reviewHotels");
 
-    MockExternalContext context = new MockExternalContext();
-    context.setEventId("book");
-    resumeFlow(context);
+		List<Hotel> hotels = new ArrayList<>();
+		Hotel hotel = new Hotel();
+		hotel.setId(1L);
+		hotel.setName("Jameson Inn");
+		hotels.add(hotel);
+		HotelLazyDataModel dataModel = new HotelLazyDataModel();
+		dataModel.setSelected(hotel);
+		getViewScope().put("hotels", dataModel);
 
-    assertFlowExecutionEnded();
-    assertFlowExecutionOutcomeEquals("finish");
-  }
+		MockExternalContext context = new MockExternalContext();
+		context.setEventId("select");
+		resumeFlow(context);
+
+		assertCurrentStateEquals("reviewHotel");
+		assertNull(getFlowAttribute("hotels"));
+		assertSame(hotel, getFlowAttribute("hotel"));
+	}
+
+	public void testBookHotel() {
+
+		setCurrentState("reviewHotel");
+
+		Hotel hotel = new Hotel();
+		hotel.setId(1L);
+		hotel.setName("Jameson Inn");
+		getFlowScope().put("hotel", hotel);
+
+		Flow mockBookingFlow = new Flow("booking");
+		mockBookingFlow.setInputMapper(new Mapper() {
+
+			@Override
+			public MappingResults map(Object source, Object target) {
+
+				assertEquals(Long.valueOf(1), ((AttributeMap) source).get("hotelId"));
+				return null;
+			}
+		});
+		new EndState(mockBookingFlow, "bookingConfirmed");
+		getFlowDefinitionRegistry().registerFlowDefinition(mockBookingFlow);
+
+		MockExternalContext context = new MockExternalContext();
+		context.setEventId("book");
+		resumeFlow(context);
+
+		assertFlowExecutionEnded();
+		assertFlowExecutionOutcomeEquals("finish");
+	}
 }

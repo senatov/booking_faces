@@ -4,12 +4,19 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.webflow.booking.entities.Booking;
+import org.springframework.webflow.booking.entities.Hotel;
+import org.springframework.webflow.booking.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.util.StringUtils.*;
+
+
 
 /**
  * A JPA-based implementation of the Booking Service. Delegates to a JPA entity manager to issue data access calls
@@ -99,7 +106,7 @@ public class JpaBookingService implements BookingService, Serializable {
   // helpers
 
   private String getSearchPattern(SearchCriteria criteria) {
-    if (StringUtils.hasText(criteria.getSearchString())) {
+    if (hasText(criteria.getSearchString())) {
       return "%" + criteria.getSearchString().toLowerCase().replace('*', '%') + "%";
     } else {
       return "%";

@@ -1,4 +1,4 @@
-package org.springframework.webflow.booking;
+package org.springframework.webflow.booking.entities;
 
 import java.io.Serializable;
 
