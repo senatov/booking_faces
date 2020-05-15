@@ -17,7 +17,7 @@
 |Libs | Ver
 
 |Spring Boot
-|[red]*2.2.6*
+|[red]*2.3.0*
 |Primefaces
 
 |7.0.
