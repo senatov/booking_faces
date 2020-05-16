@@ -40,7 +40,7 @@ public class WrapRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-		log.debug(String.join("\nRequest-Uri:", request.getRequestURI()));
+		log.debug("\nRequest-Uri: {}", request.getRequestURI());
 		ServletContextFacadeRequestWrapper wrapper = new ServletContextFacadeRequestWrapper(request);
 		/**
 

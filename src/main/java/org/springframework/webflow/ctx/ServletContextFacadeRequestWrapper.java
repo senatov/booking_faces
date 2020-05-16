@@ -37,7 +37,7 @@ public class ServletContextFacadeRequestWrapper extends HttpServletRequestWrappe
 		if (isNotBlank(contextPath)) {
 			return contextPath;
 		}
-		log.debug(String.join("\ngetContextPath:", super.getContextPath()));
+		log.debug("\ngetContextPath: {}", super.getContextPath());
 		return super.getContextPath();
 	}
 
@@ -54,7 +54,7 @@ public class ServletContextFacadeRequestWrapper extends HttpServletRequestWrappe
 		if (isNotBlank(servletPath)) {
 			return servletPath;
 		}
-		log.debug(String.join("\ngetServletPath:", super.getServletPath()));
+		log.debug("\ngetServletPath: {}", super.getServletPath());
 		return super.getServletPath();
 	}
 
@@ -72,7 +72,7 @@ public class ServletContextFacadeRequestWrapper extends HttpServletRequestWrappe
 		if (requestURI.equals(contextPath)) {
 			return requestURI + '/';
 		}
-		log.debug(String.join("\ngetRequestURI:", requestURI));
+		log.debug("\ngetRequestURI: {}", requestURI);
 		return requestURI;
 	}
 
