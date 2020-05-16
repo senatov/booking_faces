@@ -3,6 +3,7 @@ package org.springframework.webflow.ctx;
 
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -17,64 +18,62 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @since 05.2020
  */
 @ToString
+@Slf4j
 public class ServletContextFacadeRequestWrapper extends HttpServletRequestWrapper {
 
-    private String contextPath;
-    private String servletPath;
+	private String contextPath;
+	private String servletPath;
 
 
+	public ServletContextFacadeRequestWrapper(HttpServletRequest request) {
 
-    public ServletContextFacadeRequestWrapper(HttpServletRequest request) {
-
-        super(request);
-    }
-
+		super(request);
+	}
 
 
-    @Override
-    public String getContextPath() {
+	@Override
+	public String getContextPath() {
 
-        if (isNotBlank(contextPath)) {
-            return contextPath;
-        }
-        return super.getContextPath();
-    }
-
-
-
-    public void setContextPath(String contextPath) {
-
-        this.contextPath = contextPath;
-    }
+		if (isNotBlank(contextPath)) {
+			return contextPath;
+		}
+		log.debug(String.join("\ngetContextPath:", super.getContextPath()));
+		return super.getContextPath();
+	}
 
 
+	public void setContextPath(String contextPath) {
 
-    @Override
-    public String getServletPath() {
-
-        if (isNotBlank(servletPath)) {
-            return servletPath;
-        }
-        return super.getServletPath();
-    }
+		this.contextPath = contextPath;
+	}
 
 
+	@Override
+	public String getServletPath() {
 
-    public void setServletPath(String servletPath) {
+		if (isNotBlank(servletPath)) {
+			return servletPath;
+		}
+		log.debug(String.join("\ngetServletPath:", super.getServletPath()));
+		return super.getServletPath();
+	}
 
-        this.servletPath = servletPath;
-    }
+
+	public void setServletPath(String servletPath) {
+
+		this.servletPath = servletPath;
+	}
 
 
+	@Override
+	public String getRequestURI() {
 
-    @Override
-    public String getRequestURI() {
-
-        String requestURI = super.getRequestURI();
-        if (requestURI.equals(contextPath)) {
-            return requestURI + '/';
-        }
-        return requestURI;
-    }
+		String requestURI = super.getRequestURI();
+		if (requestURI.equals(contextPath)) {
+			return requestURI + '/';
+		}
+		log.debug(String.join("\ngetRequestURI:", requestURI));
+		return requestURI;
+	}
 
 }

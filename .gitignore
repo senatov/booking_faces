@@ -141,7 +141,7 @@ buildNumber.properties
 *Db.script
 
 # logs
-/stacktrace.log
+/stackDEBUG.log
 /test/reports
 /logs
 *.log
