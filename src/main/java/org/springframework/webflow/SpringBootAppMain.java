@@ -2,7 +2,6 @@ package org.springframework.webflow;
 
 
 
-import com.sun.faces.config.ConfigureListener;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,9 @@ import org.springframework.webflow.utils.Utls;
 
 import javax.faces.webapp.FacesServlet;
 import javax.naming.NamingException;
-import javax.servlet.ServletContext;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
@@ -34,51 +30,44 @@ import static java.lang.String.valueOf;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SpringBootAppMain implements CommandLineRunner {
 
-    public static final String FORMAT1 = "  %s)  [ %s ]  ";
-    @Autowired
-    private ApplicationContext appContext;
+	public static final String FORMAT1 = "  %s)  [ %s ]  ";
+	@Autowired
+	private ApplicationContext appContext;
 
 
+	public static void main(String... args) throws Exception {
 
-    public static void main(String... args) throws Exception {
-    
-        SpringApplication.run(SpringBootAppMain.class, args);
-    }
-
+		SpringApplication.run(SpringBootAppMain.class, args);
+	}
 
 
-    @Override
-    public void run(String... args) throws Exception {
+	@Override
+	public void run(String... args) throws Exception {
 
-        AtomicInteger atomicInteger = new AtomicInteger(1);
-        Arrays.stream(appContext.getBeanDefinitionNames()) //
-              .sorted()//
-              .forEach(o -> {
-                  String count = valueOf(atomicInteger.getAndDecrement());
-                  log.debug(format(FORMAT1, count, o));
-              });
-    }
-
-
-
-    @Bean
-    public ServletRegistrationBean<FacesServlet> facesServletRegistraiton() {
-
-        ServletRegistrationBean servletRegistration = new ServletRegistrationBean(new FacesServlet(), "*.xhtml");
-        servletRegistration.setLoadOnStartup(1);
-        return servletRegistration;
-    }
+		AtomicInteger atomicInteger = new AtomicInteger(1);
+		Arrays.stream(appContext.getBeanDefinitionNames()) //
+		      .sorted()//
+		      .forEach(o -> {
+			      String count = valueOf(atomicInteger.getAndDecrement());
+			      log.debug(format(FORMAT1, count, o));
+		      });
+	}
 
 
+	@Bean
+	public ServletRegistrationBean<FacesServlet> facesServletRegistraiton() {
 
-    @Bean
-    public ServletContextInitializer servletContextInitializer() throws NamingException {
+		ServletRegistrationBean servletRegistration = new ServletRegistrationBean(new FacesServlet(), "*.xhtml");
+		servletRegistration.setLoadOnStartup(1);
+		return servletRegistration;
+	}
 
-        log.debug("servletContextInitializer()");
-        return sc -> {
-            Utls.setParams(sc);
-        };
-    }
 
+	@Bean
+	public ServletContextInitializer servletContextInitializer() throws NamingException {
+
+		log.debug("servletContextInitializer()");
+		return Utls::setParams;
+	}
 
 }

@@ -19,145 +19,127 @@ import java.math.BigDecimal;
 @Entity
 public class Hotel implements Serializable {
 
-    private static final long serialVersionUID = 4011346719502656269L;
-    private Long id;
-    @Length(max = 120)
-    private String name;
-    private String address;
-    private String city;
-    private String state;
-    private String zip;
-    private String country;
-    private BigDecimal price;
+	private static final long serialVersionUID = 4011346719502656269L;
+	private Long id;
+	@Length(max = 120)
+	private String name;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String country;
+	private BigDecimal price;
 
 
+	@Id
+	@GeneratedValue
+	public Long getId() {
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
+		return id;
+	}
 
-        return id;
-    }
 
+	public void setId(Long id) {
 
+		this.id = id;
+	}
 
-    public void setId(Long id) {
 
-        this.id = id;
-    }
+	public String getName() {
 
+		return name;
+	}
 
 
-    public String getName() {
+	public void setName(String name) {
 
-        return name;
-    }
+		this.name = name;
+	}
 
 
+	public String getAddress() {
 
-    public void setName(String name) {
+		return address;
+	}
 
-        this.name = name;
-    }
 
+	public void setAddress(String address) {
 
+		this.address = address;
+	}
 
-    public String getAddress() {
 
-        return address;
-    }
+	public String getCity() {
 
+		return city;
+	}
 
 
-    public void setAddress(String address) {
+	public void setCity(String city) {
 
-        this.address = address;
-    }
+		this.city = city;
+	}
 
 
+	public String getZip() {
 
-    public String getCity() {
+		return zip;
+	}
 
-        return city;
-    }
 
+	public void setZip(String zip) {
 
+		this.zip = zip;
+	}
 
-    public void setCity(String city) {
 
-        this.city = city;
-    }
+	public String getState() {
 
+		return state;
+	}
 
 
-    public String getZip() {
+	public void setState(String state) {
 
-        return zip;
-    }
+		this.state = state;
+	}
 
 
+	public String getCountry() {
 
-    public void setZip(String zip) {
+		return country;
+	}
 
-        this.zip = zip;
-    }
 
+	public void setCountry(String country) {
 
+		this.country = country;
+	}
 
-    public String getState() {
 
-        return state;
-    }
+	@Column(precision = 6, scale = 2)
+	public BigDecimal getPrice() {
 
+		return price;
+	}
 
 
-    public void setState(String state) {
+	public void setPrice(BigDecimal price) {
 
-        this.state = state;
-    }
+		this.price = price;
+	}
 
 
+	public Booking createBooking(User user) {
 
-    public String getCountry() {
+		return new Booking(this, user);
+	}
 
-        return country;
-    }
 
+	@Override
+	public String toString() {
 
-
-    public void setCountry(String country) {
-
-        this.country = country;
-    }
-
-
-
-    @Column(precision = 6, scale = 2)
-    public BigDecimal getPrice() {
-
-        return price;
-    }
-
-
-
-    public void setPrice(BigDecimal price) {
-
-        this.price = price;
-    }
-
-
-
-    public Booking createBooking(User user) {
-
-        return new Booking(this, user);
-    }
-
-
-
-    @Override
-    public String toString() {
-
-        return "Hotel(" + name + "," + address + "," + city + "," + zip + ")";
-    }
+		return "Hotel(" + name + ',' + address + ',' + city + ',' + zip + ')';
+	}
 
 }

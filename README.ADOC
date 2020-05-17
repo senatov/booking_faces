@@ -1,6 +1,5 @@
 = #*booking_faces*# (refreshed Example from Spring.io)
 
-
 - Java 14, JSF2,
 - Spring App (Tomcat 9),
 - Spring Boot,
@@ -8,8 +7,7 @@
 - Spring Webflow,
 - HSQLDB
 
-## based on example https://github.com/spring-projects/spring-webflow-samples/tree/master/booking-mvc[Spring-webflow-samples] from https://Spring.io[Spring.io]
-
+== based on example https://github.com/spring-projects/spring-webflow-samples/tree/master/booking-mvc[Spring-webflow-samples] from https://Spring.io[Spring.io]
 
 [green]#*copyleft* _`Iakov Senatov 02.2020.`_#
 
@@ -32,7 +30,6 @@
 |===
 
 My own implementation of Projects from Spring.io webflow examples.
-
 
 *Paths:*
 

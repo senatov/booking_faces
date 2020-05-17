@@ -578,11 +578,11 @@
                         </manifest>
                         <manifestEntries>
                             <Built-At>${maven.build.timestamp}</Built-At>
-                            <Implementation-Build>${buildnumber}</Implementation-Build>
+                            <Implementation-Build>${project.build}</Implementation-Build>
                             <version>${project.version}</version>
                             <mode>development</mode>
                             <url>${project.url}</url>
-                            <Build-Jdk>${java.version} (${java.vendor} ${java.vm.version})</Build-Jdk>
+                            <Build-Jdk>${java.version} (${java.vendor} ${java.vm.version}</Build-Jdk>
                             <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
                             <Build-Revision>${git.commit.id}</Build-Revision>
                             <Build-OS>${os.name} ${os.arch} ${os.version}</Build-OS>

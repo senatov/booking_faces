@@ -4,8 +4,6 @@ package org.springframework.webflow.booking;
 
 import lombok.ToString;
 import org.easymock.EasyMock;
-import org.springframework.binding.mapping.Mapper;
-import org.springframework.binding.mapping.MappingResults;
 import org.springframework.faces.model.converter.FacesConversionService;
 import org.springframework.webflow.booking.entities.Booking;
 import org.springframework.webflow.booking.entities.Hotel;
@@ -59,7 +57,6 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 				.expect(bookingService.findBookings("keith"))
 				.andReturn(bookings);
 		EasyMock.replay(bookingService);
-
 		MockExternalContext context = new MockExternalContext();
 		context.setCurrentUser("keith");
 		startFlow(context);
@@ -78,11 +75,9 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		SearchCriteria criteria = new SearchCriteria();
 		criteria.setSearchString("Jameson");
 		getFlowScope().put("searchCriteria", criteria);
-
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("search");
 		resumeFlow(context);
-
 		assertCurrentStateEquals("reviewHotels");
 		assertResponseWrittenEquals("reviewHotels", context);
 		assertTrue(getRequiredViewAttribute("hotels") instanceof HotelLazyDataModel);
@@ -100,11 +95,9 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		HotelLazyDataModel dataModel = new HotelLazyDataModel();
 		dataModel.setSelected(hotel);
 		getViewScope().put("hotels", dataModel);
-
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("select");
 		resumeFlow(context);
-
 		assertCurrentStateEquals("reviewHotel");
 		assertNull(getFlowAttribute("hotels"));
 		assertSame(hotel, getFlowAttribute("hotel"));
@@ -120,22 +113,16 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		getFlowScope().put("hotel", hotel);
 
 		Flow mockBookingFlow = new Flow("booking");
-		mockBookingFlow.setInputMapper(new Mapper() {
+		mockBookingFlow.setInputMapper((source, target) -> {
 
-			@Override
-			public MappingResults map(Object source, Object target) {
-
-				assertEquals(Long.valueOf(1), ((AttributeMap) source).get("hotelId"));
-				return null;
-			}
+			assertEquals(Long.valueOf(1), ((AttributeMap) source).get("hotelId"));
+			return null;
 		});
 		new EndState(mockBookingFlow, "bookingConfirmed");
 		getFlowDefinitionRegistry().registerFlowDefinition(mockBookingFlow);
-
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("book");
 		resumeFlow(context);
-
 		assertFlowExecutionEnded();
 		assertFlowExecutionOutcomeEquals("finish");
 	}
