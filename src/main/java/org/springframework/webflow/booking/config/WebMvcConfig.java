@@ -26,11 +26,13 @@ import static java.util.concurrent.TimeUnit.HOURS;
 @ToString
 public class WebMvcConfig implements WebMvcConfigurer {
 
+	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/resources/", "classpath:/public/", "classpath:/public/images/", "classpath:/public/styles/"};
 	public static final CacheControl CACHE_PUBLIC = CacheControl
-			.maxAge(2, HOURS)
+			.maxAge(2L, HOURS)
 			.cachePublic();
 	@Autowired
 	private WebFlowConfig webFlowConfig;
+
 
 
 	@Bean
@@ -45,6 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 
+
 	@Bean
 	public FlowHandlerAdapter flowHandlerAdapter() {
 
@@ -52,6 +55,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		adapter.setFlowExecutor(webFlowConfig.flowExecutor());
 		return adapter;
 	}
+
 
 
 	@Bean
@@ -63,6 +67,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		resolver.setSuffix(".xhtml");
 		return resolver;
 	}
+
 
 
 	@Bean

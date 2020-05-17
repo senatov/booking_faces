@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.webflow.filter.MyFilter;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 
 
@@ -27,7 +27,7 @@ public class AppConfig {
 
 		FilterRegistrationBean frb = new FilterRegistrationBean();
 		frb.setFilter(new MyFilter());
-		frb.setUrlPatterns(Arrays.asList("/*"));
+		frb.setUrlPatterns(Collections.singletonList("/*"));
 		return frb;
 	}
 

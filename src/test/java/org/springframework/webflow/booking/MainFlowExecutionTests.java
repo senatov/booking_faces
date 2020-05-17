@@ -28,17 +28,23 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 
 	private BookingService bookingService;
 
+
+
 	@Override
 	protected void setUp() {
 
 		bookingService = EasyMock.createMock(BookingService.class);
 	}
 
+
+
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 
 		return resourceFactory.createFileResource("src/main/webapp/WEB-INF/flows/main/main-flow.xml");
 	}
+
+
 
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
@@ -48,6 +54,8 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 				.getFlowBuilderServices()
 				.setConversionService(new FacesConversionService());
 	}
+
+
 
 	public void testStartMainFlow() {
 
@@ -68,6 +76,8 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		EasyMock.verify(bookingService);
 	}
 
+
+
 	public void testSearchHotels() {
 
 		setCurrentState("enterSearchCriteria");
@@ -82,6 +92,8 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		assertResponseWrittenEquals("reviewHotels", context);
 		assertTrue(getRequiredViewAttribute("hotels") instanceof HotelLazyDataModel);
 	}
+
+
 
 	public void testSelectHotel() {
 
@@ -103,6 +115,8 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		assertSame(hotel, getFlowAttribute("hotel"));
 	}
 
+
+
 	public void testBookHotel() {
 
 		setCurrentState("reviewHotel");
@@ -115,7 +129,7 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		Flow mockBookingFlow = new Flow("booking");
 		mockBookingFlow.setInputMapper((source, target) -> {
 
-			assertEquals(Long.valueOf(1), ((AttributeMap) source).get("hotelId"));
+			assertEquals(1L, ((AttributeMap) source).get("hotelId"));
 			return null;
 		});
 		new EndState(mockBookingFlow, "bookingConfirmed");
@@ -126,4 +140,5 @@ public class MainFlowExecutionTests extends AbstractXmlFlowExecutionTests {
 		assertFlowExecutionEnded();
 		assertFlowExecutionOutcomeEquals("finish");
 	}
+
 }

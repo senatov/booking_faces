@@ -19,19 +19,24 @@ public class MyFilter implements Filter {
 		log.debug("init filter {} ", getClass().getName());
 	}
 
+
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		String url = request instanceof HttpServletRequest ? ((HttpServletRequest) request)
 				.getRequestURL()
 				.toString() : "N/A";
-		log.debug("from filter, processing url: {}", url);
+		log.debug("\n\nfrom filter, processing url: {}\n\n", url);
 		chain.doFilter(request, response);
 	}
+
+
 
 	@Override
 	public void destroy() {
 
 		log.debug("filter destroyed");
 	}
+
 }

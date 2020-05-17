@@ -32,11 +32,15 @@ public class JpaBookingService implements BookingService, Serializable {
 
 	private EntityManager em;
 
+
+
 	@PersistenceContext
 	public void setEntityManager(EntityManager em) {
 
 		this.em = em;
 	}
+
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -52,6 +56,8 @@ public class JpaBookingService implements BookingService, Serializable {
 			return null;
 		}
 	}
+
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -70,6 +76,8 @@ public class JpaBookingService implements BookingService, Serializable {
 				.getResultList();
 	}
 
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public int getNumberOfHotels(SearchCriteria criteria) {
@@ -82,6 +90,8 @@ public class JpaBookingService implements BookingService, Serializable {
 		return count.intValue();
 	}
 
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public Hotel findHotelById(Long id) {
@@ -89,15 +99,18 @@ public class JpaBookingService implements BookingService, Serializable {
 		return em.find(Hotel.class, id);
 	}
 
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public Booking createBooking(Long hotelId, String username) {
 
 		Hotel hotel = em.find(Hotel.class, hotelId);
 		User user = findUser(username);
-		Booking booking = new Booking(hotel, user);
-		return booking;
+		return new Booking(hotel, user);
 	}
+
+
 
 	@Override
 	@Transactional
@@ -105,6 +118,8 @@ public class JpaBookingService implements BookingService, Serializable {
 
 		em.persist(booking);
 	}
+
+
 
 	@Override
 	@Transactional
@@ -118,6 +133,8 @@ public class JpaBookingService implements BookingService, Serializable {
 
 	// helpers
 
+
+
 	private static String getSearchPattern(SearchCriteria criteria) {
 
 		if (hasText(criteria.getSearchString())) {
@@ -130,6 +147,8 @@ public class JpaBookingService implements BookingService, Serializable {
 			return "%";
 		}
 	}
+
+
 
 	private User findUser(String username) {
 
