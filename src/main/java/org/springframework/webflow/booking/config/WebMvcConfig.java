@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.mvc.JsfView;
 import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
 import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -21,11 +21,10 @@ import static java.util.concurrent.TimeUnit.HOURS;
 
 
 
-@EnableWebMvc
 @Configuration
 @Slf4j
 @ToString
-public class WebMvcConfig {
+public class WebMvcConfig implements WebMvcConfigurer {
 
 	public static final CacheControl CACHE_PUBLIC = CacheControl
 			.maxAge(2, HOURS)
