@@ -27,6 +27,7 @@ import static java.util.concurrent.TimeUnit.HOURS;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/resources/", "classpath:/public/", "classpath:/public/images/", "classpath:/public/styles/"};
+
 	public static final CacheControl CACHE_PUBLIC = CacheControl
 			.maxAge(2L, HOURS)
 			.cachePublic();
