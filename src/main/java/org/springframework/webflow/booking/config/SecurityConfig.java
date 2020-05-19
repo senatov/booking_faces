@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		web
 				.ignoring()
-				.antMatchers("/public/**", "/resources/**", "/styles/**", "/images/**", "/javax.faces.resource/**");
+				.antMatchers("/public/**", "/resources/**", "/styles/**", "/images/**", "/intro/javax.faces.resource/**");
 
 	}
 

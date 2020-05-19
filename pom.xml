@@ -42,6 +42,11 @@
             <name>spring.io.plugins-snapshot</name>
             <url>https://repo.spring.io/plugins-snapshot</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
     </pluginRepositories>
 
     <repositories>
@@ -376,12 +381,12 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -536,33 +541,16 @@
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
-                        <phase>clean</phase>
-                    </execution>
-                    <execution>
-                        <id>validate-the-git-infos</id>
-                        <phase>validate</phase>
                         <goals>
-                            <goal>validateRevision</goal>
+                            <goal>revision</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                    <format>json</format>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <generateGitPropertiesFilename>
-                        ${project.build.outputDirectory}/git.properties
-                    </generateGitPropertiesFilename>
-                    <injectAllReactorProjects>true</injectAllReactorProjects>
-                    <prefix>git</prefix>
-                    <verbose>false</verbose>
-                    <gitDescribe>
-                        <skip>false</skip>
-                        <always>true</always>
-                        <dirty>-dirty</dirty>
-                    </gitDescribe>
+                    <generateGitPropertiesFile>false
+                    </generateGitPropertiesFile><!-- somehow necessary. otherwise the variables are not available in the pom -->
                 </configuration>
             </plugin>
             <plugin>
